@@ -175,13 +175,20 @@ public class FindPWD_10 {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				User User = users.findId(jta[0].getText(),jta[3].getText());
-				String str=User.getUserPwd();
+				User user = users.findId(jta[0].getText(),jta[3].getText());
+				String str = "";
+				
+				if(user != null) {
+					str = user.getUserPwd();
+				}else {
+					JOptionPane.showMessageDialog(jf, "해당 아이디가 존재하지 않습니다!");
+					jf.dispose();
+				}
 				
 				JOptionPane.showMessageDialog(jf, "회원님의 비밀번호는 "+str+" 입니다.");
 				
 				new Login_2().point(jf.getLocation());
-				jf.setVisible(false);
+				jf.dispose();
 			}
 		});
 	}
