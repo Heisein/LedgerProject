@@ -29,7 +29,7 @@ public class MainScreen_14 {
 		
 		ScrollPane sp = new ScrollPane();
 		sp.add(jp);
-		jp.setPreferredSize(new Dimension(320,1000));
+		jp.setPreferredSize(new Dimension(320,800));
 		
 		jf.add(sp);
 		jf.setVisible(true);
@@ -50,14 +50,14 @@ public class MainScreen_14 {
 	}
 	
 	public void SET_Pannels_Area() {
+
+		//º≠∫Í∆–≥Œ
 		JPanel sub[]=new JPanel[3];
-		
 		for(int i = 0 ; i < sub.length;i++)
 		{
 			sub[i]=new JPanel();
 			jp.add(sub[i]);
 			sub[i].setBackground(Color.WHITE);
-			sub[i].setVisible(true);
 			sub[i].setLayout(null);
 		}
 		
@@ -65,7 +65,7 @@ public class MainScreen_14 {
 		sub[0].setLocation(15,300);
 		sub[1].setSize(300,150);
 		sub[1].setLocation(15,470);
-		sub[2].setSize(300,150);
+		sub[2].setSize(300,120);
 		sub[2].setLocation(15,640);
 		
 		JLabel jl[] = new JLabel[20];
@@ -106,34 +106,34 @@ public class MainScreen_14 {
 		jl[6].setLocation(10, 45);
 		jl[7].setText("∏∂∆Æ");
 		jl[7].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
-		jl[7].setLocation(10, 70);
+		jl[7].setLocation(30, 70);
 		jl[8].setText("ƒ´∆‰/∫£¿Ãƒø∏Æ");
 		jl[8].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
-		jl[8].setLocation(10, 90);
+		jl[8].setLocation(30, 90);
 		jl[9].setText("¡÷¿Ø/¿⁄µø¬˜");
-		jl[9].setLocation(10, 110);
+		jl[9].setLocation(30, 110);
 		jl[9].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
 		jl[10].setText("184,000");
-		jl[10].setLocation(10, 30);
+		jl[10].setLocation(200, 70);
 		jl[10].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
 		jl[11].setText("74,000");
-		jl[11].setLocation(10, 30);
+		jl[11].setLocation(200, 90);
 		jl[11].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
 		jl[12].setText("53,000");
-		jl[12].setLocation(10, 30);
+		jl[12].setLocation(200, 110);
 		jl[12].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
 		jl[13].setText("ƒ´µÂ¡§∫∏");
-		jl[13].setLocation(10, 30);
+		jl[13].setLocation(10, 10);
 		jl[13].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 14));
 		jl[14].setText("∞Ë¡¬");
-		jl[14].setLocation(10, 30);
+		jl[14].setLocation(10, 50);
 		jl[14].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
 		jl[15].setText("123∞Ë¡¬π¯»£");
-		jl[15].setLocation(10, 30);
+		jl[15].setLocation(10, 70);
 		jl[15].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
 		jl[16].setText("4,235¿‹æ◊");
-		jl[16].setLocation(10, 30);
-		jl[16].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 14));
+		jl[16].setLocation(200, 60);
+		jl[16].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 18));
 		
 		jl[17].setLocation(260, 10);
 		jl[18].setLocation(260, 10);
