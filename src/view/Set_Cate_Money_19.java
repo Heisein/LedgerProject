@@ -26,6 +26,8 @@ public class Set_Cate_Money_19 {
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	
 	public void Show_Money() {
 		sub1.setSize(360,110);
 		sub1.setLayout(null);

@@ -2,32 +2,31 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import model.CardDAO;
 import model.User;
-import model.UserDAO;
 
 public class CardRegist_27 {
 	JFrame jf = new JFrame("용돈조");
 	JPanel jp = new JPanel();
 	JPanel sub = new JPanel();
+	CardDAO carddao;
 	User user;
+	JComboBox bankBox;
+	JTextField tf1;
+	
 	public CardRegist_27(User user) {
 		this.user = user;
+		carddao = new CardDAO(user);
 		
 		SET_Text_And_Label_Area();
 		SET_IMG_Area();
@@ -78,12 +77,13 @@ public class CardRegist_27 {
 
 		String[] banks = {"은행 선택", "신한은행", "농협", "국민은행","하나은행","새마을금고","기업은행" };
 
-		JComboBox bankBox = new JComboBox(banks);
+		bankBox = new JComboBox(banks);
 		bankBox.setSelectedIndex(0);
 		bankBox.setSize(200,35);
 		bankBox.setLocation(110,80);
 		
-		JTextField tf1 = new JTextField();
+		
+		tf1 = new JTextField();
 		
 		tf1.setSize(200,35);
 		tf1.setLocation(110,140);
@@ -97,8 +97,6 @@ public class CardRegist_27 {
 			}
 		}));
 			
-			
-		
 		sub.add(tf1);
 		sub.add(bankBox);
 		jp.add(sub);
@@ -131,7 +129,7 @@ public class CardRegist_27 {
 		jl[1].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				carddao.insertCard(user.getUserID(), tf1.getText(), bankBox.getSelectedItem().toString());
 				new MainScreen_14(user);
 				jf.setVisible(false);
 			}

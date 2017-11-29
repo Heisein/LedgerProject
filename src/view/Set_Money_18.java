@@ -33,7 +33,9 @@ public class Set_Money_18 {
 		jf.setVisible(true);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+	/*public static void main(String[] args) {
+		new Set_Money_18();
+	}*/
 	public void Show_Money() {
 		sub1.setSize(360,120);
 		sub1.setLayout(null);

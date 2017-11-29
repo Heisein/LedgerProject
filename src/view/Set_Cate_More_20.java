@@ -171,4 +171,7 @@ public class Set_Cate_More_20 {
 		jp.add(jl[2]);
 
 	}
+	/*public static void main(String[] args) {
+		new Set_Cate_More_20(user);
+	}*/
 }

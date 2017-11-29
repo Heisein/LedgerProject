@@ -47,6 +47,7 @@ public class LedgerBoard {
 	int totalImpotation = 0; // 총 수입
 	DecimalFormat shapFormat = new DecimalFormat("#,###"); // 원표기 포맷
 
+	Ledger l;
 	LedgerDAO ledgerDAO; // 껀수 dao
 	ArrayList<Ledger> ledgers; // 건수
 
@@ -138,6 +139,7 @@ public class LedgerBoard {
 
 	}
 
+
 	public void rePaint() { // 얘 불릴때마다 화면 다시그린다
 		Collections.sort(ledgers); // 이유는 모르겠는데 리버스 제대로안되서 소트(오름차순)먼저함
 		Collections.reverse(ledgers); // 내림차순으로 정렬시킴
@@ -148,6 +150,12 @@ public class LedgerBoard {
 		System.out.println("리페인트 실행!");
 	}
 
+	public void toCategoryDetailModify_25Class() {
+		jf.setVisible(false);
+		
+		new CategoryDetailModify_25(user,l);
+	}
+	
 	// ledger 컬렉션에 있는걸 화면에 뿌려준다
 	public void setLedgerList() {
 
@@ -155,6 +163,10 @@ public class LedgerBoard {
 		JLabel[] dateLabel = new JLabel[ledgers.size()];
 		JLabel[] payLabel = new JLabel[ledgers.size()];
 		JLabel[] moneyLabel = new JLabel[ledgers.size()];
+		JLabel[] moreLabel =new JLabel[ledgers.size()];
+		
+		//25번 화면으로 넘어갈려는 이미지파일;
+		ImageIcon moreimg=new ImageIcon("images/more.png");
 
 		// ledger 불러올때마다 사이즈 다시그려줌!
 		ledgerPanel.setSize(360, 200 + (ledgers.size() * 55));
@@ -215,6 +227,19 @@ public class LedgerBoard {
 				payX += 4;
 			payLabel[i].setBounds(payX, 5 + (i * 55), payStr.length() * 10, 25);
 
+			moreLabel[i] =new JLabel(moreimg);
+			moreLabel[i].setSize(50,50);
+			moreLabel[i].setBounds(230, 5 + (i * 55),150, 40);
+			int iTemp = i;
+			moreLabel[i].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					jf.setVisible(false);
+					new CategoryDetailModify_25(user, ledgers.get(iTemp));
+				}
+			});
+			
+			ledgerPanel.add(moreLabel[i]);
 			ledgerPanel.add(line);
 			ledgerPanel.add(locateLabel[i]);
 			ledgerPanel.add(dateLabel[i]);
@@ -222,6 +247,7 @@ public class LedgerBoard {
 			
 		} // eof
 
+		
 		int myMoney = 0;
 		
 		// 총사용금액은 포문이 반대로 돌아야해서 마지막에 따로!
@@ -241,6 +267,7 @@ public class LedgerBoard {
 			ledgerPanel.add(moneyLabel[i]);
 		}
 
+		
 		System.out.println("총지출 : " + totalExpense);
 		System.out.println("총수입 : " + totalImpotation);
 	}

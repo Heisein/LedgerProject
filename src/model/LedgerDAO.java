@@ -18,7 +18,6 @@ public class LedgerDAO{
 		this.user = user;
 		cardNum = "1";
 		fileName = "dats/" + user.getUserID() + "_ledger" + cardNum + ".dat";
-		
 		loadLedger();
 	}
 	
@@ -66,6 +65,29 @@ public class LedgerDAO{
 		}
 		
 		return categorizedLedgers;
+	}
+	
+	public void setLedgerData(Ledger l, String pay, String locate, String date) {
+		for(Ledger ltemp : ledgers)	{
+			if(l.getPay().equals(ltemp.getPay()) && l.getLocate().equals(ltemp.getLocate()) 
+					&& l.getDate().equals(ltemp.getDate())) {
+				ltemp.setPay(pay);
+				ltemp.setLocate(locate);
+				ltemp.setDate(date);
+			}
+		}
+		
+	}
+	
+	public void removeLedger(Ledger l) {
+		Ledger l2 = null;
+		for(int i = 0; i < ledgers.size(); i++)	{
+			l2 = ledgers.get(i);
+			if(l.getPay().equals(l2.getPay()) && l.getLocate().equals(l2.getLocate()) 
+					&& l.getDate().equals(l2.getDate())) {
+				ledgers.remove(l2);
+			}
+		}
 	}
 
 	public void setLedgers(ArrayList<Ledger> ledgers) {
