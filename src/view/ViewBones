@@ -1,0 +1,8 @@
+생성자 뼈대 파일
+
+		jf.setSize(360, 600);
+		jp.setBackground(new Color(117, 102, 205));
+		jp.setLayout(null);
+		jf.add(jp);
+		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
