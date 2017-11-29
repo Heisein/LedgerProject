@@ -48,7 +48,7 @@ public class CategoryList_23 {
 		jp.add(categoryTitleLabel);
 		
 		// ÃÑ¼Òºñ¾×		
-		JLabel categoryTotalLabel =new JLabel(shapFormat.format(ledgerdao.calcTotal(category)) + "¿ø");
+		JLabel categoryTotalLabel =new JLabel(shapFormat.format(ledgerdao.calcTotal(category,true)) + "¿ø");
 		categoryTotalLabel.setFont(new Font("¸¼Àº°íµñ",Font.PLAIN,22));
 		categoryTotalLabel.setForeground(Color.WHITE);
 		categoryTotalLabel.setSize(100,20);

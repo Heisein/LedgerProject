@@ -63,7 +63,7 @@ public class LedgerBoard {
 
 		titleLabel.setSize(100, 20);
 		titleLabel.setLocation(140, 20);
-		titleLabel.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 16));
+		titleLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 16));
 		titleLabel.setForeground(Color.WHITE);
 
 		jp.add(titleLabel);
