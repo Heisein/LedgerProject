@@ -11,11 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import model.CustomDialog;
 import model.User;
 import model.UserDAO;
 
@@ -25,6 +27,7 @@ public class Login_2 {
 	JTextField jta[] = new JTextField[2];
 	JLabel jl[] = new JLabel[2];
 	UserDAO users = new UserDAO();
+	JOptionPane jop = new JOptionPane();
 
 	public Login_2() {
 
@@ -100,17 +103,18 @@ public class Login_2 {
 			public void actionPerformed(ActionEvent e) {
 				char[] pass = ((JPasswordField) jta[1]).getPassword();
 				String userPwd = "";
-				for(int i=0; i<pass.length;i++){
+				for (int i = 0; i < pass.length; i++) {
 					userPwd += pass[i];
 				}
-				
+
 				User loginUser = users.loginMethod(jta[0].getText(), userPwd);
-				if(loginUser != null){
+				if (loginUser != null) {
 					System.out.println("로그인 성공!" + loginUser.getUserID());
 					new MainScreen_14(loginUser);
 					jf.setVisible(false);
-				}else{
-					System.out.println("아이디 혹은 비밀번호가 틀렸습니다.");
+				} else {
+					new CustomDialog(jf, false, "아이디 혹은 비밀번호를 확인해주세요.");
+					//jop.showMessageDialog(null, "아이디 혹은 비밀번호를 확인해주세요.", "알림", JOptionPane.PLAIN_MESSAGE);
 				}
 			}
 		});
@@ -152,9 +156,10 @@ public class Login_2 {
 		}
 
 	}
+
 	public void point(Point p) {
-	      if (p != null) {
-	         jf.setLocation(p);
-	   }
-	 }
+		if (p != null) {
+			jf.setLocation(p);
+		}
+	}
 }

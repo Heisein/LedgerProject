@@ -3,7 +3,6 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,12 +24,14 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import model.CustomDialog;
 import model.Ledger;
 import model.LedgerDAO;
 import model.User;
@@ -46,6 +47,7 @@ public class LedgerBoard {
    int totalExpense = 0; // 총 지출
    int totalImpotation = 0; // 총 수입
    DecimalFormat shapFormat = new DecimalFormat("#,###"); // 원표기 포맷
+   JOptionPane popupPanel = new JOptionPane();
 
    Ledger l;
    LedgerDAO ledgerDAO; // 껀수 dao
@@ -281,7 +283,7 @@ class showPopup extends JDialog implements ActionListener {
    LedgerBoard board;
    LedgerBoard le;
 
-   public showPopup(Frame parent, String str, LedgerBoard le) {
+   public showPopup(JFrame parent, String str, LedgerBoard le) {
       super(parent, str, true); // JDialog 생성자인듯
       this.le = le; //
 
@@ -390,12 +392,12 @@ class showPopup extends JDialog implements ActionListener {
          }
       });
 
-      texts[2].addMouseListener(new MouseAdapter() {
-         @Override
-         public void mouseClicked(MouseEvent e) {
-            texts[2].setText("");
-         }
-      });
+//      texts[2].addMouseListener(new MouseAdapter() {
+//         @Override
+//         public void mouseClicked(MouseEvent e) {
+//            texts[2].setText("");
+//         }
+//      });
 
       // 수입, 지출 라디오박스
       JRadioButton jrb1 = new JRadioButton("지출");
@@ -459,6 +461,29 @@ class showPopup extends JDialog implements ActionListener {
                isExpense = true;
             else
                isExpense = false;
+           
+            // 입력 예외처리 부분
+            try{
+            	Integer.parseInt(texts[0].getText());
+            }catch(NumberFormatException ee){
+            	JOptionPane.showMessageDialog(null, "금액에 올바른 숫자를 입력해주세요.", "알림", JOptionPane.PLAIN_MESSAGE);
+            	return;
+            }
+            
+            
+            Double dTemp = Double.parseDouble(texts[0].getText());
+            
+            if(dTemp >= 2000000000){
+            	JOptionPane.showMessageDialog(null, "금액은 20억원 미만으로 적어주세요.", "알림", JOptionPane.PLAIN_MESSAGE);
+            	return;
+            }else if(texts[1].getText().equals("이용 내역을 입력해주세요.")){
+            	JOptionPane.showMessageDialog(null, "이용 내역을 입력해주세요.", "알림", JOptionPane.PLAIN_MESSAGE);
+            	return;
+            }else if(categoryCb.getSelectedIndex() == 0){
+            	JOptionPane.showMessageDialog(null, "카테고리를 선택해주세요.", "알림", JOptionPane.PLAIN_MESSAGE);
+            	return;
+            }
+            
 
             // 콘솔에 추가된 Ledger 찍어보기
             String str = (texts[0].getText() + "," + texts[1].getText() + "," + texts[2].getText() + "," + isExpense

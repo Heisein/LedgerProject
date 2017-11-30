@@ -195,7 +195,7 @@ public class join_4 {
             String userName = jta[0].getText();
             String userPhone = jta[4].getText();
             
-            System.out.println(user.insertUser(userId, userPwd, userName, userPhone));
+            System.out.println(user.insertUser(userId, userPwd, userName, userPhone, "0"));
 
             if(e.getSource()==jl[1]) {
                if(show==null) {

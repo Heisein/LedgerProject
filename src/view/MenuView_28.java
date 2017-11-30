@@ -186,7 +186,7 @@ public class MenuView_28 {
 		jl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new MainScreen_14(new User("aa","aa,","aa","aa"));
+				new MainScreen_14(user);
 				jf.setVisible(false);
 			}
 		});

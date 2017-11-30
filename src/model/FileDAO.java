@@ -39,7 +39,7 @@ public class FileDAO {
 				}
 				String[] sArr = str.split(",");
 
-				User userTemp = new User(sArr[0], sArr[1], sArr[2], sArr[3]);
+				User userTemp = new User(sArr[0], sArr[1], sArr[2], sArr[3], sArr[4]);
 
 				u.add(userTemp);
 

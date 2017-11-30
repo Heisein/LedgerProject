@@ -30,9 +30,10 @@ import model.DescCategory;
 import model.Ledger;
 import model.LedgerDAO;
 import model.User;
+import model.UserDAO;
 
 public class MainScreen_14 {
-
+	UserDAO UD = new UserDAO();
 	JFrame jf = new JFrame("용돈조");
 	JPanel jp = new JPanel();
 	User user;
@@ -40,6 +41,7 @@ public class MainScreen_14 {
 	int totalImpotation = 0; // 총 수입
 	JOptionPane jop = new JOptionPane();
 	JLabel jl[] = new JLabel[20];
+	User utemp;
 
 	DecimalFormat shapFormat = new DecimalFormat("#,###"); // 원표기 포맷
 
@@ -57,11 +59,14 @@ public class MainScreen_14 {
 	String[] categoryStr = new String[7]; // 아래에 사용할 카테고리 스트링
 
 	public MainScreen_14(User user) {
+
 		this.user = user;
 		ledgerDAO = new LedgerDAO(user); // 유저로 패널 초기화 전에 ledgerDAO를 불러온디
 		ledgers = ledgerDAO.getLedgers(); // 처음에 그려줄 용도로 ledger 가져옴
 		cardDAO = new CardDAO(user);
-
+		jf.add(jop);
+		jop.setLocation(15, 300);
+		
 		SET_IMG_Area();
 		SET_Pannels_Area();
 		SET_Label_Area();
@@ -123,7 +128,7 @@ public class MainScreen_14 {
 			jl[i] = new JLabel(img);
 			jl[i].setSize(30, 30);
 		}
-		
+
 		// 카드 체크용
 		boolean isCard = false;
 
@@ -136,7 +141,7 @@ public class MainScreen_14 {
 		jl[2].setText("총 소비액");
 		jl[2].setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		jl[2].setLocation(10, 70);
-		jl[3].setText("400000"); // 총 예산 라벨 위치(gui 구현 때 만든 것)
+		jl[3].setText(user.getBudget()); // 총 예산 라벨 위치(gui 구현 때 만든 것)
 		jl[3].setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		jl[3].setLocation(200, 50);
 		jl[4].setText(""); // 총 소비액 (gui 구현 때 만든 것)
@@ -173,7 +178,7 @@ public class MainScreen_14 {
 			jl[14].setText(cardDAO.getCards().get(0).getBankName());
 			jl[14].setSize(100, 20);
 			isCard = true;
-		}else{
+		} else {
 			jl[14].setText("등록된 계좌 없음!");
 		}
 		jl[14].setLocation(10, 50);
@@ -181,7 +186,7 @@ public class MainScreen_14 {
 		if (cardDAO.getCards() != null) {
 			jl[15].setText(cardDAO.getCards().get(0).getAccount());
 			jl[15].setSize(100, 20);
-		}else{
+		} else {
 			jl[15].setText("");
 		}
 		jl[15].setLocation(10, 70);
@@ -195,10 +200,11 @@ public class MainScreen_14 {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				new StatView_29(user);
-				jf.setVisible(false);
+				utemp = popup(user);
+				jop.setVisible(true);
 			}
 		});
+		if(utemp != null) this.user = utemp;
 		jl[18].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -215,8 +221,8 @@ public class MainScreen_14 {
 				jf.setVisible(false);
 			}
 		});
-		
-		if(isCard){
+
+		if (isCard) {
 			ImageIcon cardimg = new ImageIcon("images/card.png");
 			JLabel jl = new JLabel(cardimg);
 			jl.setSize(75, 57);
@@ -230,7 +236,7 @@ public class MainScreen_14 {
 			Ledger l = ledgers.get(i); // temp용으로 사용할 Ledger l
 
 			int payInt = Integer.parseInt(l.getPay()); // 원표기용으로 읽어온 소비금액 int형으로
-														// 파싱
+			// 파싱
 
 			if (l.isExpense()) {
 				totalExpense += payInt; // 총지출에 더해줌
@@ -396,7 +402,7 @@ public class MainScreen_14 {
 		gra[0].add(gra[1]);
 	}
 
-	public void popup() {
+	public User popup(User user) {
 
 		jop.setSize(300, 100);
 		jop.setBackground(Color.white);
@@ -422,13 +428,22 @@ public class MainScreen_14 {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				jl[3].setText(jt.getText());
+
+				UD.budgetchange(user.getUserID(), jt.getText());
 				jop.removeAll();
 				jop.setVisible(false);
+				jl[3].setText(jt.getText());
+				
+				user.setBudget(jt.getText());
+				
+				new MainScreen_14(user);
+				jf.dispose();
 			}
 
 		});
 
 		jop.add(jb);
+		return user;
 
 	}
 

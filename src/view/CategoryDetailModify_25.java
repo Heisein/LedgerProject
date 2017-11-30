@@ -119,12 +119,12 @@ public class CategoryDetailModify_25 {
          }
       });
 
-      text[2].addMouseListener(new MouseAdapter() {
-         @Override
-         public void mouseClicked(MouseEvent e) {
-            text[2].setText("");
-         }
-      });
+//      text[2].addMouseListener(new MouseAdapter() {
+//         @Override
+//         public void mouseClicked(MouseEvent e) {
+//            text[2].setText("");
+//         }
+//      });
 
       for (int i = 0; i < text.length; i++) {
          text[i].setSize(120, 30);
