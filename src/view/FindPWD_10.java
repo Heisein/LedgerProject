@@ -178,8 +178,14 @@ public class FindPWD_10 {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				User User = users.findPwd(jta[0].getText(),jta[3].getText());
-				String str=User.getUserPwd();
+				User user = users.findPwd(jta[0].getText(),jta[3].getText());
+				
+				if(user == null){
+					JOptionPane.showMessageDialog(jf, "해당 유저를 찾을 수 없습니다.");
+					return;
+				}
+				
+				String str=user.getUserPwd();
 				
 				JOptionPane.showMessageDialog(jf, "회원님의 비밀번호는 "+str+" 입니다.");
 				

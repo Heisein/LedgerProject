@@ -146,7 +146,7 @@ public class FindID_7 {
 
 	
 	public void SET_IMG_Area() {
-		ImageIcon img = new ImageIcon("back.png");
+		ImageIcon img = new ImageIcon("images/back.png");
 		JLabel jl = new JLabel(img);
 		jl.setSize(50, 50);
 		jl.setLocation(5, 5);
@@ -184,8 +184,14 @@ public class FindID_7 {
 		jl[1].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				User User = new UserDAO().findId(jta[0].getText(),jta[2].getText());
-				String str = User.getUserID();
+				User user = new UserDAO().findId(jta[0].getText(),jta[2].getText());
+				
+				if(user == null){
+					JOptionPane.showMessageDialog(jf, "해당 유저를 찾을 수 없습니다.");
+					return;
+				}
+				
+				String str = user.getUserID();
 				
 				JOptionPane.showMessageDialog(jf, "회원님의 아이디는 "+str+" 입니다.");
 				
