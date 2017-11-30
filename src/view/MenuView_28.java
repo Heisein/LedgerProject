@@ -16,7 +16,8 @@ public class MenuView_28 {
 	User user;
 	
 	public MenuView_28(User user) {
-		user = user;
+		this.user = user;
+		
 		Set_setting();
 		SET_IMG_Area();
 		SET_Label_Area();
@@ -44,7 +45,7 @@ public class MenuView_28 {
 		S_sub[1].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new FindPWD_Re_12();
+				new FindPWD_Re_12(user);
 				jf.setVisible(false);
 			}
 		});
@@ -58,7 +59,7 @@ public class MenuView_28 {
 		S_sub[3].addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new MainScreen_14(new User("aa","aa","aa","aa"));
+				new MainScreen_14(user);
 				jf.setVisible(false);
 			}
 		});
@@ -104,12 +105,12 @@ public class MenuView_28 {
 		
 		ImageIcon img = new ImageIcon("front.png");
 
-		jl[0].setText("Username ");
+		jl[0].setText(user.getUserName() + " ´Ô");
 		jl[0].setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 16));
 		jl[0].setSize(200, 25);
 		jl[0].setLocation(20, 5);
 
-		jl[1].setText("Email ");
+		jl[1].setText(user.getUserID());
 		jl[1].setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 13));
 		jl[1].setSize(200, 25);
 		jl[1].setLocation(20, 25);

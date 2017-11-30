@@ -37,8 +37,8 @@ public class CategoryMain_21 {
 	public CategoryMain_21(User user) {
 		this.user = user;
 		ledgerDao = new LedgerDAO(user);
-		
-		//카테고리 배열 초기화
+
+		// 카테고리 배열 초기화
 		categoryStr[0] = "뷰티";
 		categoryStr[1] = "외식";
 		categoryStr[2] = "마트";
@@ -47,58 +47,15 @@ public class CategoryMain_21 {
 		categoryStr[5] = "교통";
 		categoryStr[6] = "미분류";
 
-		// 소비 총액 계산하기
-		ArrayList<Ledger> al = ledgerDao.getLedgers();
-
-		for (Ledger l : al) {
-			switch (l.getCategory()) {
-			case "뷰티":
-				if (l.isExpense())
-					beautyTotal += Integer.parseInt(l.getPay());
-				else
-					beautyTotal -= Integer.parseInt(l.getPay());
-				break;
-			case "마트":
-				if (l.isExpense())
-					martTotal += Integer.parseInt(l.getPay());
-				else
-					martTotal -= Integer.parseInt(l.getPay());
-				break;
-			case "외식":
-				if (l.isExpense())
-					eatTotal += Integer.parseInt(l.getPay());
-				else
-					eatTotal -= Integer.parseInt(l.getPay());
-				break;
-			case "서점/문구":
-				if (l.isExpense())
-					booksTotal += Integer.parseInt(l.getPay());
-				else
-					booksTotal -= Integer.parseInt(l.getPay());
-				break;
-			case "카페/베이커리":
-				if (l.isExpense())
-					cafeTotal += Integer.parseInt(l.getPay());
-				else
-					cafeTotal -= Integer.parseInt(l.getPay());
-				break;
-			case "교통":
-				if (l.isExpense())
-					transportTotal += Integer.parseInt(l.getPay());
-				else
-					transportTotal -= Integer.parseInt(l.getPay());
-				break;
-			case "미분류":
-				if (l.isExpense())
-					nocateTotal += Integer.parseInt(l.getPay());
-				else
-					nocateTotal -= Integer.parseInt(l.getPay());
-				break;
-			}
-		}
-
-		// 전체를 더한 값을 만듬 (백분율 계산용)
-		intTotal = beautyTotal + martTotal + eatTotal + booksTotal + cafeTotal + transportTotal + nocateTotal;
+		// 값 초기화
+		intTotal = ledgerDao.calcTotal(true);
+		beautyTotal = ledgerDao.calcTotal("뷰티", true);
+		martTotal = ledgerDao.calcTotal("마트", true);
+		eatTotal = ledgerDao.calcTotal("외식", true);
+		booksTotal = ledgerDao.calcTotal("서점/문구", true);
+		cafeTotal = ledgerDao.calcTotal("카페/베이커리", true);
+		transportTotal = ledgerDao.calcTotal("교통", true);
+		nocateTotal = ledgerDao.calcTotal("미분류", true);
 
 		SET_Title_Area();
 		SET_Content_Area();
@@ -269,7 +226,7 @@ public class CategoryMain_21 {
 			more[i].setSize(50, 55);
 			more[i].setLocation(285, i * 55);
 			more[i].setVisible(true);
-			
+
 			int iTemp = i;
 
 			more[i].addMouseListener(new MouseAdapter() {

@@ -9,134 +9,172 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LedgerDAO {
-   User user;
-   ArrayList<Ledger> ledgers = new ArrayList<Ledger>();
-   String fileName;
-   String cardNum;
+	User user;
+	ArrayList<Ledger> ledgers = new ArrayList<Ledger>();
+	String fileName;
+	String cardNum;
 
-   public LedgerDAO(User user) {
-      this.user = user;
-      cardNum = "1";
-      fileName = "dats/" + user.getUserID() + "_ledger" + cardNum + ".dat";
+	public LedgerDAO(User user) {
+		this.user = user;
+		cardNum = "1";
+		fileName = "dats/" + user.getUserID() + "_ledger" + cardNum + ".dat";
 
-      loadLedger();
-   }
+		loadLedger();
+	}
 
-   // 총지출 계산 : 불리언이 true면 지출, 아니면 수입 계산
-   public int calcTotal(boolean isExpense) {
-      int result = 0;
+	// 총지출 계산 : 불리언이 true면 지출, 아니면 수입 계산
+	public int calcTotal(boolean isExpense) {
+		int result = 0;
 
-      for (Ledger l : ledgers) {
-         if (l.isExpense() == isExpense) {
-            result += Integer.parseInt(l.getPay());
-         }
-      }
+		for (Ledger l : ledgers) {
+			if (l.isExpense() == isExpense) {
+				result += Integer.parseInt(l.getPay());
+			}
+		}
 
-      return result;
-   }
+		return result;
+	}
 
-   // 총지출 계산 : 해당 카테고리의 true면 지출, false면 수입 가져오기
-   public int calcTotal(String category, boolean isExpense) {
-      int total = 0;
+	// 총지출 계산 : 해당 카테고리의 true면 지출, false면 수입 가져오기
+	public int calcTotal(String category, boolean isExpense) {
+		int total = 0;
 
-      for (Ledger l : ledgers) {
-         if (category.equals(l.getCategory()) && l.isExpense() == isExpense) {
-            total += Integer.parseInt(l.getPay());
-         }
-      }
+		for (Ledger l : ledgers) {
+			if (category.equals(l.getCategory()) && l.isExpense() == isExpense) {
+				total += Integer.parseInt(l.getPay());
+			}
+		}
 
-      return total;
-   }
+		return total;
+	}
+	
+	// 총지출 계산 : 해당 달의 true면 지출, false면 수입 가져오기
+	public int calcTotal(String date, boolean isExpense, boolean isMonth) {
+		int total = 0;
+		
+		if(Integer.parseInt(date) < 10) date = "0" + date;
 
-   public void insertLedger(String pay, String locate, String date, boolean isExpense, String category,
-         String comment) {
-      ledgers.add(new Ledger(pay, locate, date, isExpense, category, comment));
-   }
+		for (Ledger l : ledgers) {
+			if (date.equals(l.getDate().substring(2, 4)) && l.isExpense() == isExpense) {
+				total += Integer.parseInt(l.getPay());
+			}
+		}
 
-   // 레더 전체 가져오기
-   public ArrayList<Ledger> getLedgers() {
-      return ledgers;
-   }
+		return total;
+	}
 
-   // 카테고리별 레더 가져오기
-   public ArrayList<Ledger> getLedgers(String category) {
-      ArrayList<Ledger> categorizedLedgers = new ArrayList<Ledger>();
+	public void insertLedger(String pay, String locate, String date, boolean isExpense, String category,
+			String comment) {
+		ledgers.add(new Ledger(pay, locate, date, isExpense, category, comment));
+	}
 
-      for (Ledger l : ledgers) {
-         if (l.getCategory().equals(category))
-            categorizedLedgers.add(l);
-      }
+	public void setLedgerData(Ledger l, String pay, String locate, String date) {
+		for (Ledger ltemp : ledgers) {
+			if (l.getPay().equals(ltemp.getPay()) && l.getLocate().equals(ltemp.getLocate())
+					&& l.getDate().equals(ltemp.getDate())) {
+				ltemp.setPay(pay);
+				ltemp.setLocate(locate);
+				ltemp.setDate(date);
+			}
+		}
 
-      return categorizedLedgers;
-   }
+	}
 
-   // 월별 레더 가져오기
-   public ArrayList<Ledger> getLedgers(String month, boolean isMonth) {
-      ArrayList<Ledger> monthListedLedgers = new ArrayList<Ledger>();
+	public void removeLedger(Ledger l) {
+		Ledger l2 = null;
+		for (int i = 0; i < ledgers.size(); i++) {
+			l2 = ledgers.get(i);
+			if (l.getPay().equals(l2.getPay()) && l.getLocate().equals(l2.getLocate())
+					&& l.getDate().equals(l2.getDate())) {
+				ledgers.remove(l2);
+			}
+		}
+	}
 
-      for (Ledger l : ledgers) {
-         if (l.getDate().substring(2, 4).equals(month))
-            monthListedLedgers.add(l);
-      }
+	// 레더 전체 가져오기
+	public ArrayList<Ledger> getLedgers() {
+		return ledgers;
+	}
 
-      return monthListedLedgers;
-   }
+	// 카테고리별 레더 가져오기
+	public ArrayList<Ledger> getLedgers(String category) {
+		ArrayList<Ledger> categorizedLedgers = new ArrayList<Ledger>();
 
-   public void setLedgers(ArrayList<Ledger> ledgers) {
-      this.ledgers = ledgers;
-   }
+		for (Ledger l : ledgers) {
+			if (l.getCategory().equals(category))
+				categorizedLedgers.add(l);
+		}
 
-   public int calcNowMoney() {
-      return 0;
-   }
+		return categorizedLedgers;
+	}
 
-   public void saveLedger() {
-      try (BufferedWriter bOut = new BufferedWriter(new FileWriter(fileName))) {
-         for (int i = 0; i < ledgers.size(); i++) {
-            bOut.write(ledgers.get(i).toString() + "\n");
-         }
+	// 월별 레더 가져오기
+	public ArrayList<Ledger> getLedgers(String month, boolean isMonth) {
+		ArrayList<Ledger> monthListedLedgers = new ArrayList<Ledger>();
 
-         System.out.println(fileName + " 파일 저장!!");
-      } catch (FileNotFoundException e) {
-         System.out.println(fileName + " 존재하지 않음 : 새로 만들어짐");
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-   }
+		for (Ledger l : ledgers) {
+			if (l.getDate().substring(2, 4).equals(month))
+				monthListedLedgers.add(l);
+		}
 
-   public void loadLedger() {
-      try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-         while (true) {
-            String str = br.readLine();
+		return monthListedLedgers;
+	}
 
-            if (str == null) {
-               System.out.println(fileName + " 파일 읽기 완료");
-               break;
-            }
+	public void setLedgers(ArrayList<Ledger> ledgers) {
+		this.ledgers = ledgers;
+	}
 
-            String[] sArr = str.split(",");
-            boolean isExpenseTemp = true;
+	public int calcNowMoney() {
+		return 0;
+	}
 
-            if (sArr[3].equals("true"))
-               isExpenseTemp = true;
-            else
-               isExpenseTemp = false;
+	public void saveLedger() {
+		try (BufferedWriter bOut = new BufferedWriter(new FileWriter(fileName))) {
+			for (int i = 0; i < ledgers.size(); i++) {
+				bOut.write(ledgers.get(i).toString() + "\n");
+			}
 
-            String memoStr = "";
+			System.out.println(fileName + " 파일 저장!!");
+		} catch (FileNotFoundException e) {
+			System.out.println(fileName + " 존재하지 않음 : 새로 만들어짐");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-            if (sArr[5] != null)
-               memoStr = sArr[5];
+	public void loadLedger() {
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			while (true) {
+				String str = br.readLine();
 
-            Ledger ledgerTemp = new Ledger(sArr[0], sArr[1], sArr[2], isExpenseTemp, sArr[4], memoStr);
+				if (str == null) {
+					System.out.println(fileName + " 파일 읽기 완료");
+					break;
+				}
 
-            ledgers.add(ledgerTemp);
+				String[] sArr = str.split(",");
+				boolean isExpenseTemp = true;
 
-         }
-      } catch (FileNotFoundException e) {
-         System.out.println(fileName + " 존재하지 않음!");
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-   }
+				if (sArr[3].equals("true"))
+					isExpenseTemp = true;
+				else
+					isExpenseTemp = false;
+
+				String memoStr = "";
+
+				if (sArr[5] != null)
+					memoStr = sArr[5];
+
+				Ledger ledgerTemp = new Ledger(sArr[0], sArr[1], sArr[2], isExpenseTemp, sArr[4], memoStr);
+
+				ledgers.add(ledgerTemp);
+
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(fileName + " 존재하지 않음!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

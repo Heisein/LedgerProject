@@ -45,6 +45,31 @@ public class UserDAO {
 
 		return null;
 	}
+	
+	// 비밀번호 찾기
+	public User findPwd(String userID, String userPhone) {
+		for (int i = 0; i < users.size(); i++) {
+			if ((userID.equals(users.get(i).getUserID()))) {
+				if ((userPhone.equals(users.get(i).getUserPhone())))
+					return users.get(i);
+			}
+		}
+
+		return null;
+	}
+	
+	
+	// 비밀번호 변경
+	public boolean changePWD(String userId, String newPwd) {
+		for (int i = 0; i < users.size(); i++) {
+			if ((userId.equals(users.get(i).getUserID()))) {
+				users.get(i).setUserPwd(newPwd);
+				saveUser();
+				return true;
+			} 
+		}
+		return false;
+	}
 
 	public String insertUser(String userId, String userPwd, String userName, String userPhone) {
 		if (!checkUser(userId)) {

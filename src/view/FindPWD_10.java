@@ -44,7 +44,7 @@ public class FindPWD_10 {
 		sub.setLayout(null);
 		sub.setBackground(Color.white);
 
-		JLabel jl_intro = new JLabel("           아이디를 찾기 위해서는 본인인증이 필요합니다.");
+		JLabel jl_intro = new JLabel("    비밀번호를 찾기 위해서는 아이디(이메일)이 필요합니다.");
 		jl_intro.setLocation(-1, 0);
 		jl_intro.setSize(360, 40);
 		jl_intro.setVisible(true);
@@ -68,14 +68,17 @@ public class FindPWD_10 {
 			jl[i].setLocation(20, 40 + (80 * i));
 			jta[i].setLocation(20, 70 + (80 * i));
 		}
-//체크박스 영역
+		
+		//체크박스 영역
 		JCheckBox jcb = new JCheckBox("본인 확인을 위한 약관에 동의합니다.");
 		jcb.setSize(340, 30);
 		jcb.setLocation(20, 370);
 		jcb.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		jcb.setBackground(Color.WHITE);
 		sub.add(jcb);
-//배열영역
+		
+		
+		//배열영역
 		for (int i = 0; i < jta.length; i++) {
 			jl[i].setSize(300, 40);
 			jl[i].setVisible(true);
@@ -93,7 +96,8 @@ public class FindPWD_10 {
 		jta[3].setLocation(160, 310);
 		jp.add(sub);
 		
-// 콤보박스 영역		
+		
+		// 콤보박스 영역		
 		JComboBox jc = new JComboBox();
 		String tele[]= {"SKT","KT","LG","HELLO"};
 		jc.setSize(120,30);
@@ -134,7 +138,7 @@ public class FindPWD_10 {
 
 	
 	public void SET_IMG_Area() {
-		ImageIcon img = new ImageIcon("back.png");
+		ImageIcon img = new ImageIcon("images/back.png");
 		JLabel jl = new JLabel(img);
 		jl.setSize(50, 50);
 		jl.setLocation(5, 5);
@@ -174,21 +178,13 @@ public class FindPWD_10 {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				User user = users.findId(jta[0].getText(),jta[3].getText());
-				String str = "";
-				
-				if(user != null) {
-					str = user.getUserPwd();
-				}else {
-					JOptionPane.showMessageDialog(jf, "해당 아이디가 존재하지 않습니다!");
-					jf.dispose();
-				}
+				User User = users.findPwd(jta[0].getText(),jta[3].getText());
+				String str=User.getUserPwd();
 				
 				JOptionPane.showMessageDialog(jf, "회원님의 비밀번호는 "+str+" 입니다.");
 				
 				new Login_2().point(jf.getLocation());
-				jf.dispose();
+				jf.setVisible(false);
 			}
 		});
 	}
