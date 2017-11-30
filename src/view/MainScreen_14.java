@@ -174,6 +174,23 @@ public class MainScreen_14 {
 		jl[13].setText("Ä«µåÁ¤º¸");
 		jl[13].setLocation(10, 10);
 		jl[13].setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 14));
+		
+		 //CardManagement Å¬·¡½º·Î ÀÌµ¿ÇÏ±â
+	      JButton cardManage=new JButton("°èÁÂ °ü¸®");
+	      cardManage.setSize(100,20);
+	      cardManage.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 14));   
+	      cardManage.setLocation(70,10);
+	      cardManage.setBackground(Color.white);
+	      sub[2].add(cardManage);
+	      cardManage.addActionListener(new ActionListener() {
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	            // TODO Auto-generated method stub
+	            jf.setVisible(false);
+	            new CardManagement(user);
+	         }
+	      });
+		
 		if (cardDAO.getCards() != null) {
 			jl[14].setText(cardDAO.getCards().get(0).getBankName());
 			jl[14].setSize(100, 20);
