@@ -384,7 +384,7 @@ public class MainScreen_14 {
 		gra[0] = new JPanel();
 		gra[1] = new JPanel();
 
-		int max = Integer.parseInt(jl[3].getText());
+		long max = Long.parseLong(jl[3].getText());
 		double now = totalExpense;
 
 		System.out.println(max + " " + totalExpense);

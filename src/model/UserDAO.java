@@ -71,13 +71,13 @@ public class UserDAO {
       return false;
    }
 
-   public String insertUser(String userId, String userPwd, String userName, String userPhone,String budget) {
+   public boolean insertUser(String userId, String userPwd, String userName, String userPhone,String budget) {
       if (!checkUser(userId)) {
          users.add(new User(userId, userPwd, userName, userPhone,budget));
          this.saveUser();
-         return userId + "\n회원가입에 성공했습니다.";
+         return true;
       } else {
-         return "이미 존재하는 아이디입니다.";
+         return false;
       }
 
    }
