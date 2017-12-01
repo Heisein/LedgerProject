@@ -26,6 +26,8 @@ public class StatView_29 {
 	LedgerDAO ledgerdao = null;
 	DecimalFormat shapFormat = new DecimalFormat("#,###"); // 원표기 포맷
 	String[] months = new String[6];
+	int fiveMonthExpense = 0;
+	int fiveMonthSuip = 0 ;
 	
 	public StatView_29(User user) {
 		this.user = user;
@@ -56,6 +58,9 @@ public class StatView_29 {
 			jl[i].setLocation(70 , 55 + (i * 45));
 			jl[i].setVisible(true);
 			jp.add(jl[i]);
+			
+			fiveMonthExpense += ledgerdao.calcTotal(months[i], true, true);
+			fiveMonthSuip += ledgerdao.calcTotal(months[i], false, true);
 		}
 		
 		JLabel monthLabel[] = new JLabel[6];
@@ -97,13 +102,13 @@ public class StatView_29 {
 		statisLabel[0].setText("이번달 내역");
 		statisLabel[1].setText("수입");
 		statisLabel[2].setText("지출");
-		statisLabel[3].setText(shapFormat.format(ledgerdao.calcTotal(false)) + "");
-		statisLabel[4].setText(shapFormat.format(ledgerdao.calcTotal(true)) + "");
+		statisLabel[3].setText(shapFormat.format(ledgerdao.calcTotal(months[0], false, true)));
+		statisLabel[4].setText(shapFormat.format(ledgerdao.calcTotal(months[0], true, true)));
 		statisLabel[5].setText("5개월 평균 내역");
 		statisLabel[6].setText("수입");
 		statisLabel[7].setText("지출");
-		statisLabel[8].setText("1,000,000");
-		statisLabel[9].setText("222,210");
+		statisLabel[8].setText(shapFormat.format(fiveMonthSuip));
+		statisLabel[9].setText(shapFormat.format(fiveMonthExpense));
 
 		statisLabel[0].setLocation(10, 10);
 		statisLabel[1].setLocation(10, 50);

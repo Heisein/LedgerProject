@@ -15,13 +15,13 @@ import javax.swing.border.LineBorder;
 
 import model.User;
 
-public class Set_Money_18 {
+public class __Set_Money_18 {
 	JFrame jf =new JFrame("¿ëµ·Á¶");
 	JPanel jp =new JPanel();
 	JPanel sub =new JPanel();
 	JPanel sub1 =new JPanel();
 	User u;
-	public Set_Money_18() {
+	public __Set_Money_18() {
 		SET_IMG_Area();
 		SET_Label_Area();
 		Show_Money();
@@ -141,7 +141,7 @@ public class Set_Money_18 {
 		jl.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new Budget_Set1_17();
+				new __Budget_Set1_17();
 				jf.setVisible(false);
 			}
 		});

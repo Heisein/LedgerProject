@@ -13,13 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-public class Budget_Set1_17 {
+public class __Budget_Set1_17 {
 	JFrame jf = new JFrame("¿ëµ·Á¶");
 	JPanel jp = new JPanel();
 	JPanel sub = new JPanel();
 	JLabel jl[] = new JLabel[5];
 
-	public Budget_Set1_17() {
+	public __Budget_Set1_17() {
 		SET_Text_And_Label_Area();
 		SET_IMG_Area();
 		SET_Label_Area();

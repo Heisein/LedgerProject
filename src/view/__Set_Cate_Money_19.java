@@ -9,12 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-public class Set_Cate_Money_19 {
+public class __Set_Cate_Money_19 {
 	JFrame jf =new JFrame("¿ëµ·Á¶");
 	JPanel jp =new JPanel();
 	JPanel sub =new JPanel();
 	JPanel sub1 =new JPanel();
-	public Set_Cate_Money_19() {
+	public __Set_Cate_Money_19() {
 		SET_IMG_Area();
 		SET_Label_Area();
 		Show_Money();
@@ -224,7 +224,7 @@ public class Set_Cate_Money_19 {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Set_Cate_Money_19();
+		new __Set_Cate_Money_19();
 	}
 
 }

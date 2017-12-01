@@ -11,14 +11,14 @@ import javax.swing.border.LineBorder;
 
 import model.User;
 
-public class Set_Cate_More_20 {
+public class __Set_Cate_More_20 {
 	JFrame jf = new JFrame("¿ëµ·Á¶");
 	JPanel jp = new JPanel();
 	JPanel sub = new JPanel();
 	JPanel sub1 = new JPanel();
 	User user;
 
-	public Set_Cate_More_20(User user) {
+	public __Set_Cate_More_20(User user) {
 		this.user = user;
 		
 		SET_IMG_Area();

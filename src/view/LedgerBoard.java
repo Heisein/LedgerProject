@@ -222,6 +222,7 @@ public class LedgerBoard {
             payStr = "+ " + shapFormat.format(payInt);
             totalImpotation += payInt; // √—ºˆ¿‘ø° ¥ı«ÿ¡‹
          }
+         
          payLabel[i].setText(payStr);
          payLabel[i].setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 16));
          int payX = 281 - (payStr.length() * 7);
@@ -284,7 +285,7 @@ class showPopup extends JDialog implements ActionListener {
    LedgerBoard le;
 
    public showPopup(JFrame parent, String str, LedgerBoard le) {
-      super(parent, str, true); // JDialog ª˝º∫¿⁄¿ŒµÌ
+      super(parent, str, true);
       this.le = le; //
 
       this.setSize(360, 600);
