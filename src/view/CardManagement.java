@@ -159,9 +159,4 @@ System.out.println(i);
       sub1.add(jl);
       jp.add(sub1);
    }
-
-   /*public static void main(String[] args) {
-      new CardManagement(user);
-   }
-*/
 }
